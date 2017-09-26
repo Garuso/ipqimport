@@ -25,7 +25,7 @@ defined('_JEXEC') or die;
 			<?php endif;?>
 
 			<div class="price-sku-brand-container row-fluid">
-				<?php if(!$this->params->get('item_show_sdesc') ):?>
+                                <?php if(!$this->params->get('item_show_sdesc') || $this->params->get('item_show_ldesc') ):?>
                                 <div itemprop="description" class="tab-pane fade in active" id="description">
                                         <?php echo $this->loadTemplate('sdesc'); ?>
                                 </div>

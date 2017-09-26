@@ -737,7 +737,7 @@ class J2StoreControllerProducts extends J2StoreControllerProductsBase
 		//add a pathway
 		$pathway	= $app->getPathway();
 		$path = array(array('title' => $product->product_name, 'link' => ''));
-		if(isset($product->source->category_title) && $params->get('breadcrumb_category_inclusion', 0)) {
+		if(isset($product->source->category_title) && $params->get('breadcrumb_category_inclusion', 1)) {
 			$path[] =
 			array (
 					'title' => $product->source->category_title,

@@ -123,7 +123,10 @@ $hide = true;
 								<?php endif;?>
 							</div>
 						<?php endif;?>
-					<?php endif; ?>	
+					<?php endif; ?>
+					<div class="pull-right">
+						<button type="button" class="btn btn-default" onclick="jQuery('#j2store_cart_item_<?php echo $module->id; ?>').hide('fast');" ><?php echo JText::_ ( 'J2STORE_CLOSE' )?></button>
+					</div>
 				</div>
 		</div>
 

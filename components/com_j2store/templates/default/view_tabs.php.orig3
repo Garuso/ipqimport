@@ -17,7 +17,9 @@ defined('_JEXEC') or die;
 					if($this->params->get('item_show_sdesc') ||  $this->params->get('item_show_ldesc')){
 						$set_specification_active = false;
 				}
-				?>
+				if($this->params->get('item_show_sdesc') || $this->params->get('item_show_ldesc')):?>
+					<li class="active"><a href="#description" data-toggle="tab"><?php echo JText::_('J2STORE_PRODUCT_DESCRIPTION')?></a>
+				<?php endif;?>
 
 				<?php if($this->params->get('item_show_product_specification')):?>
 					<li class="<?php echo isset($set_specification_active) && $set_specification_active ? 'active' : '';?>" >
@@ -27,8 +29,9 @@ defined('_JEXEC') or die;
 			</ul>
 
 			<div class="tab-content">
-				<?php if($this->params->get('item_show_sdesc') || !$this->params->get('item_show_ldesc') ):?>
+				<?php if($this->params->get('item_show_sdesc') || $this->params->get('item_show_ldesc') ):?>
 				<div itemprop="description" class="tab-pane fade in active" id="description">
+					<?php echo $this->loadTemplate('sdesc'); ?>
 					<?php echo $this->loadTemplate('ldesc'); ?>
 				</div>
 				<?php endif;?>

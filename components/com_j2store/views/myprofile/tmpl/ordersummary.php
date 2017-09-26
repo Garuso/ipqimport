@@ -38,41 +38,8 @@ $currency = J2Store::currency();
 								<?php endif;?>
 							</span>
 						<?php endif; ?>
-						<span class="cart-product-name">
-							<?php echo $item->orderitem_name; ?>  
-						</span>
-						<br />
-						<?php if(isset($item->orderitemattributes)): ?>
-							<span class="cart-item-options">
-							<?php foreach ($item->orderitemattributes as $attribute):
-								if($attribute->orderitemattribute_type == 'file') {
-									unset($table);
-									$table = F0FTable::getInstance('Upload', 'J2StoreTable')->getClone();
-									if($table->load(array('mangled_name'=>$attribute->orderitemattribute_value))) {
-										$attribute_value = $table->original_name;
-									}
-								}else {
-									$attribute_value = JText::_($attribute->orderitemattribute_value);
-								}
-							?>
-								<small>
-								- <?php echo JText::_($attribute->orderitemattribute_name); ?> : <?php echo $attribute_value; ?>
-								</small>
 
-								<!--link to download for files-->
-             				   <?php if(JFactory::getApplication()->isAdmin() && $attribute->orderitemattribute_type=='file' && JFactory::getApplication()->input->getString('task')!='printOrder'):?>
-
-             					  <a target="_blank" class="btn btn-primary"
-             					  href="<?php echo JRoute::_('index.php?option=com_j2store&view=orders&task=download&ftoken='.$attribute->orderitemattribute_value);?>"
-             					  >
-             					  <i class="icon icon-download"></i>
-             					   <?php echo JText::_('J2STORE_DOWNLOAD');?>
-             					   </a>
-             				   	<?php endif;?>
-             				   	<br />
-							<?php endforeach;?>
-							</span>
-						<?php endif; ?>
+						<?php echo $this->order->get_formatted_lineitem_name($item);?>
 
 						<?php if($this->params->get('show_price_field', 1)): ?>
 

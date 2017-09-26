@@ -214,11 +214,11 @@ $filter_catid = isset($this->filter_catid) ? $this->filter_catid : '';
 						<h4 class="product-filter-heading"><?php echo JText::_($filtergroup['group_name']);?></h4>
 						<span>
 							<?php if($this->params->get('list_filter_productfilter_toggle',1)==1):?>
-								<a href="javascript:void(0);" id="pf-filter-icon-minus-<?php echo $filter_script_id;?>"   onclick="getPFFilterToggle('<?php echo $filter_script_id;?>');"><i class="icon-minus"></i></a>
-								<a href="javascript:void(0);" id="pf-filter-icon-plus-<?php echo $filter_script_id;?>" onclick="getPFFilterToggle('<?php echo $filter_script_id;?>');" style="display:none;" ><i class="icon-plus"></i></a>
+								<span id="pf-filter-icon-minus-<?php echo $filter_script_id;?>"   onclick="getPFFilterToggle('<?php echo $filter_script_id;?>');"><i class="icon-minus"></i></span>
+								<span  id="pf-filter-icon-plus-<?php echo $filter_script_id;?>" onclick="getPFFilterToggle('<?php echo $filter_script_id;?>');" style="display:none;" ><i class="icon-plus"></i></span>
 							<?php elseif($this->params->get('list_filter_productfilter_toggle',1)==2):?>
-								<a href="javascript:void(0);" id="pf-filter-icon-plus-<?php echo $filter_script_id;?>"  onclick="getPFFilterToggle('<?php echo $filter_script_id;?>');" ><i class="icon-plus"></i></a>
-								<a href="javascript:void(0);" id="pf-filter-icon-minus-<?php echo $filter_script_id;?>"   onclick="getPFFilterToggle('<?php echo $filter_script_id;?>');" style="display:none;" ><i class="icon-minus"></i></a>
+								<span  id="pf-filter-icon-plus-<?php echo $filter_script_id;?>"  onclick="getPFFilterToggle('<?php echo $filter_script_id;?>');" ><i class="icon-plus"></i></span>
+								<span  id="pf-filter-icon-minus-<?php echo $filter_script_id;?>"   onclick="getPFFilterToggle('<?php echo $filter_script_id;?>');" style="display:none;" ><i class="icon-minus"></i></span>
 							<?php endif;?>
 						<?php if(!empty($session_productfilter_ids) ):?>
 							<a href="javascript:void(0);"

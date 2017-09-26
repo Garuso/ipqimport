@@ -517,7 +517,7 @@ class J2StoreModelProductsBehaviorVariable extends F0FModelBehavior {
 		$return ['pricing'] ['orginal']['base_price'] = $variant->pricing->base_price;
 		$return ['pricing'] ['orginal']['price'] = $variant->pricing->price;
 		//dimensions
-		$return['dimensions'] = round($variant->length,2).' x '.round($variant->height,2).' x '.round($variant->width,2).' '.$variant->length_title;
+		$return['dimensions'] = round($variant->length,2).' x '.round($variant->width,2).' x '.round($variant->height,2).' '.$variant->length_title;
 		$return['weight'] = round($variant->weight,2).' '.$variant->weight_title;
 
 		return $return;

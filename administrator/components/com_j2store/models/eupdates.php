@@ -57,5 +57,4 @@ class J2StoreModelEupdates extends F0FModel
 		curl_close($curl);
 		return $resp;
 	}
-
 }

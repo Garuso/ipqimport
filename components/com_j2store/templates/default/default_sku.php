@@ -9,7 +9,7 @@
 defined('_JEXEC') or die;
 ?>
 
-<?php if(empty($this->product->variant->sku)) : ?>
+<?php if(!empty($this->product->variant->sku)) : ?>
 	<div class="product-sku">
 		<span class="sku-text"><?php echo JText::_('J2STORE_SKU')?></span>
 		<span itemprop="sku" class="sku"> <?php echo $this->product->variant->sku; ?> </span>

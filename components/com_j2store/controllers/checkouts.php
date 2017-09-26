@@ -547,7 +547,7 @@ class J2StoreControllerCheckouts extends F0FController
 
 		}
 
-		J2Store::plugin()->event('CheckoutValidateGuest',array(&$json));
+		J2Store::plugin()->event('CheckoutValidateGuest',array(&$json,&$data));
 
 		if (!$json) {
 			//now assign the post data to the guest billing array.
@@ -748,7 +748,7 @@ class J2StoreControllerCheckouts extends F0FController
 		}
 
 
-		J2Store::plugin()->event('CheckoutValidateGuestShipping',array(&$json));
+		J2Store::plugin()->event('CheckoutValidateGuestShipping',array(&$json,&$data));
 
 
 		if(!$json) {
@@ -937,7 +937,7 @@ class J2StoreControllerCheckouts extends F0FController
 		if (!$user->id) {
 			$json['redirect'] = $redirect_url;
 		}
-
+		J2Store::plugin()->event('BeforeCheckoutValidateBilling',array(&$json));
 		//Has the customer selected an existing address?
 		$selected_billing_address = $app->input->getString('billing_address');
 		if (isset($selected_billing_address ) && $app->input->getString('billing_address') == 'existing') {
@@ -1163,7 +1163,7 @@ class J2StoreControllerCheckouts extends F0FController
 		if (count($order->getItems()) < 1) {
 			$json['redirect'] = $redirect_url;
 		}
-
+		J2Store::plugin()->event('BeforeCheckoutValidateShipping',array(&$json));
 		//Has the customer selected an existing address?
 		$selected_shipping_address =$app->input->getString('shipping_address');
 		if (isset($selected_shipping_address ) && $app->input->getString('shipping_address') == 'existing') {
@@ -1593,7 +1593,7 @@ class J2StoreControllerCheckouts extends F0FController
 			$order = $orders_model->initOrder($order_id)->getOrder();
 			$orders_model->validateOrder($order);
 			//plugin trigger
-			$app->triggerEvent( "onJ2StoreAfterOrderValidate", array($order) );
+			$app->triggerEvent( "onJ2StoreAfterOrderValidate", array(&$order) );
 		}catch (Exception $e) {
 			$errors[]= $e->getMessage();
 		}
@@ -1893,9 +1893,7 @@ class J2StoreControllerCheckouts extends F0FController
 		$orderpayment_id = ( int ) $app->getUserState ( 'j2store.orderpayment_id' );
 
 		$order_id = $app->getUserState ( 'j2store.order_id' );
-		//clear
-		$app->setUserState ( 'j2store.order_id', null);
-		$app->setUserState ( 'j2store.orderpayment_id', null);
+
 
 		$order = F0FTable::getAnInstance('Order', 'J2StoreTable')->getClone();
 		$order->load ( array (
@@ -1921,6 +1919,10 @@ class J2StoreControllerCheckouts extends F0FController
 		// free product? set the state to confirmed and save the order.
 		if ((! empty ( $order_id )) && ( float ) $order->order_total == ( float ) '0.00') {
 			$order->payment_complete();
+
+			// After confirm free product
+			J2Store::plugin()->event( "AfterConfirmFreeProduct", array ($order) );
+			
 			//free product. So clear cart.
 			if($clear_cart == 'order_confirmed') {
 				$order->empty_cart();
@@ -1978,6 +1980,9 @@ class J2StoreControllerCheckouts extends F0FController
 				$html .= $result;
 			}
 		}
+
+		$app->setUserState ( 'j2store.order_id', null);
+		$app->setUserState ( 'j2store.orderpayment_id', null);
 
 		$is_mobile = $session->get('is_mobile','','j2store');
 		if($is_mobile){

@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 	<div class="row">
 		<div class="col-sm-12">
 			<ul class="nav nav-tabs" id="j2store-product-detail-tab">
-			<?php
+				<?php
 					$set_specification_active =true;
 					if($this->params->get('item_show_sdesc') ||  $this->params->get('item_show_ldesc')){
 						$set_specification_active = false;

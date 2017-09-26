@@ -19,7 +19,7 @@ $cross_image_width = $this->params->get('item_product_cross_image_width', '100')
 
 				<?php foreach($this->cross_sells as $cross_sell_product):?>
 					<?php
-
+						$cross_sell_product->product_link = JRoute::_('index.php?option=com_j2store&view=products&task=view&id='.$cross_sell_product->j2store_product_id);
 						if(!empty($cross_sell_product->addtocart_text)) {
 							$cart_text = JText::_($cross_sell_product->addtocart_text);
 						} else {
@@ -44,7 +44,7 @@ $cross_image_width = $this->params->get('item_product_cross_image_width', '100')
 
 	      				?>
 		   				<?php if(isset($thumb_image) &&  JFile::exists(JPATH::clean(JPATH_SITE.'/'.$thumb_image))):?>
-		   					<img alt="<?php echo $cross_sell_product->product_name ;?>" class="j2store-product-thumb-image-<?php echo $cross_sell_product->j2store_product_id; ?>"  src="<?php echo JUri::root().JPath::clean($thumb_image);?>" width="<?php echo intval($cross_image_width);?>"/>
+		   					<img title="<?php echo $cross_sell_product->product_name ;?>" alt="<?php echo $cross_sell_product->product_name ;?>" class="j2store-product-thumb-image-<?php echo $cross_sell_product->j2store_product_id; ?>"  src="<?php echo JUri::root().JPath::clean($thumb_image);?>" width="<?php echo intval($cross_image_width);?>"/>
 					   	<?php endif; ?>
 
 						</span>

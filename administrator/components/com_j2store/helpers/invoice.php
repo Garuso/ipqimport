@@ -100,8 +100,8 @@ class J2Invoice {
 			if(isset($order->customer_group) && !empty($order->customer_group)) {
 				$app = JFactory::getApplication ();
 				if($app->isSite()){
-					$query->where(' CASE WHEN group_id = '.$db->q($order->customer_group).' THEN group_id ='.$db->q($order->customer_group).'
-									ELSE group_id ="*" OR group_id =""
+					$query->where(' CASE WHEN group_id IN( '.$order->customer_group.') THEN group_id IN('.$order->customer_group.')
+									ELSE group_id ="*" OR group_id ="1" OR group_id =""
 								END
 					');
 				}

@@ -14,7 +14,7 @@ $actionURL = JRoute::_('index.php?option=com_j2store&view=products'.$item_id);
 $filter_position = $this->params->get('list_filter_position', 'right');
 ?>
 
-<div itemscope itemtype="http://schema.org/ItemList" class="j2store-product-list bs3"   data-link="<?php echo JRoute::_($this->active_menu->link.'&Itemid='.$this->active_menu->id);?>">
+<div itemscope itemtype="http://schema.org/BreadCrumbList" class="j2store-product-list bs3"   data-link="<?php echo JRoute::_($this->active_menu->link.'&Itemid='.$this->active_menu->id);?>">
 
 	<?php echo J2Store::plugin()->eventWithHtml('BeforeViewProductListDisplay',array($this->products));?>
 	<?php echo J2Store::modules()->loadposition('j2store-product-list-top'); ?>

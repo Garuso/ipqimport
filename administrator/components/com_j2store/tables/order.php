@@ -1007,7 +1007,7 @@ class J2StoreTableOrder extends F0FTable
 		$this->order_shipping = $order_shipping;
 		$this->order_shipping_tax = $order_shipping_tax;
 
-		J2Store::plugin ()->event ( "CalculateShippingTotals", array( $this ) );
+		J2Store::plugin ()->event ( "CalculateShippingTotals", array( &$this ) );
 	}
 
 	function getOrderInformation ()
@@ -2341,6 +2341,14 @@ class J2StoreTableOrder extends F0FTable
 					$attribute_value = JText::_ ( $attribute->orderitemattribute_value );
 				}
 				$html .= '<small>'.JText::_( $attribute->orderitemattribute_name ).' : '.$attribute_value.'</small><br />';
+				if(JFactory::getApplication()->isAdmin() && $attribute->orderitemattribute_type=='file' && JFactory::getApplication()->input->getString('task')!='printOrder'){
+					$html .= '<a target="_blank" class="btn btn-primary"';
+					$html .= 'href="'.JRoute::_("index.php?option=com_j2store&view=orders&task=download&ftoken=".$attribute->orderitemattribute_value).'"';
+					$html .= '<i class="icon icon-download"></i>';
+					$html .= JText::_('J2STORE_DOWNLOAD');
+					$html .= '</a>';
+					$html .= '<br />';
+				}
 			}
 			$html .= '</span>';
 		}
@@ -2599,7 +2607,15 @@ class J2StoreTableOrder extends F0FTable
 	
 		$quantity_in_cart = $this->get_orderitem_stock($items);
 		foreach ( $items as $item) {
-	
+			$result = J2Store::plugin ()->event ( 'ValidateOrderStock', array($item,$this) );
+			if (!empty( $result ) )
+			{
+				if(in_array(false, $result, false)){
+					return false;
+				}else{
+					return true;
+				}
+			}
 			// check quantity restrictions
 			if ($item->cartitem->quantity_restriction && J2Store::isPro()) {
 				// get quantity restriction

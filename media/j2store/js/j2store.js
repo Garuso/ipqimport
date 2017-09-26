@@ -621,9 +621,9 @@ function setMainPreview(addimagId, product_id, imageZoom, zoom_type){
 			zoomWindowHeight:300
 			 });
 		}else if(zoom_type=='inner') {
-			$("#j2store-item-main-image-"+product_id + " .zoomImg").attr('src',src);			
+			$("#j2store-item-main-image-"+product_id + " .zoomImg").attr('src',src);
 			$("#j2store-item-main-image-"+product_id + " img" ).attr('src',src);
-			$('#j2store-item-main-image-'+product_id).zoom({
+			$('#j2store-item-main-image-'+product_id).elevateZoom({
 				cursor: "crosshair",
 				zoomWindowFadeIn: 500,
 				zoomWindowFadeOut: 750,

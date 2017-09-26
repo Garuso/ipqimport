@@ -12,6 +12,7 @@ class J2StoreControllerInventories extends F0FController
 		$state = array();
 		$state['filter_order']= $app->input->getString('filter_order','j2store_productquantity_id');
 		$state['filter_order_Dir']= $app->input->getString('filter_order_Dir','ASC');
+		$state['inventry_stock']= $app->input->getString('inventry_stock','');
 		return $state;
 	}
 

@@ -354,6 +354,7 @@ class J2StoreTableProduct extends F0FTable
 			$view->display();
 			$html .= ob_get_contents();
 			ob_end_clean();
+			J2Store::plugin()->event('BeforeDisplayImages', array(&$html, $view, 'com_j2store.products.view.default'));
 			$html .= J2Store::plugin ()->eventWithHtml ( 'AfterRenderingProductImages' , array($this) );
 			
 		}

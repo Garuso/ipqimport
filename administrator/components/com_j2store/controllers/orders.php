@@ -150,14 +150,18 @@ class J2StoreControllerOrders extends F0FController
 
 			if($ordershipping->load(array('order_id'=>$order->order_id))){
 				$ordershipping->ordershipping_tracking_id = isset($data['ordershipping_tracking_id']) ? $data['ordershipping_tracking_id'] : '';
-				if($ordershipping->store()) {
-					$msg = JText::_('J2STORE_ORDER_SAVED_SUCCESSFULLY');
-					$msgType ='message';
-				}else {
-					$msg = JText::_('J2STORE_ORDER_SAVE_ERROR');
-					$msgType='warning';
-				}
+			}else {
+				$ordershipping->order_id = $order->order_id;
+				$ordershipping->ordershipping_tracking_id = isset($data['ordershipping_tracking_id']) ? $data['ordershipping_tracking_id'] : '';
 			}
+			if($ordershipping->store()) {
+				$msg = JText::_('J2STORE_ORDER_SAVED_SUCCESSFULLY');
+				$msgType ='message';
+			}else {
+				$msg = JText::_('J2STORE_ORDER_SAVE_ERROR');
+				$msgType='warning';
+			}
+
 		}
 		$url ='index.php?option=com_j2store&view=order&task=edit&id='.$id;
 		$this->setRedirect($url, $msg,$msgType);
@@ -522,7 +526,7 @@ class J2StoreControllerOrders extends F0FController
 		$order->load($order_id);		
 		$result =array('msg' => JText::_('J2STORE_SAVE_SUCCESS') ,'msgType'=>'message');
 		$data = $app->input->get('jform',array(),'ARRAY');
-		
+		J2Store::plugin ()->event ( 'BeforeSaveAdminOrder', array(&$order) );
 		switch($sublayout){
 			// save basic function
 			case 'basic':

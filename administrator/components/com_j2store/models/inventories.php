@@ -56,8 +56,14 @@ class J2StoreModelInventories extends F0FModel {
 		$query->join('INNER','#__j2store_products ON #__j2store_products.j2store_product_id = #__j2store_variants.product_id');
 	}
 
-	public function _buildWhereQuery($query){
-
+	public function _buildWhereQuery(&$query){
+		$inventry = $this->getState ('inventry_stock','');
+		if($inventry == 'in_stock'){
+			$query->where('#__j2store_variants.availability = 1');
+		}
+		if($inventry == 'out_of_stock'){
+			$query->where('#__j2store_variants.availability = 0');
+		}
 	}
 
 	public function _buildQueryOrderBy($query){

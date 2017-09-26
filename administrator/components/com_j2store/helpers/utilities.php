@@ -32,24 +32,26 @@ class J2Utilities {
 	}
 	
 	public function clear_cache() {
-		
-		//clean it just once.
-		if(!$this->_is_cleaned) {
-			$cache = JFactory::getCache();
-			$cache->clean('com_j2store');
-			$cache->clean('com_content');
-			$this->_is_cleaned = true;			
+		try{
+			//clean it just once.
+			if(!$this->_is_cleaned) {
+				$cache = JFactory::getCache();
+				$cache->clean('com_j2store');
+				$cache->clean('com_content');
+				$this->_is_cleaned = true;
+			}
+		}catch (Exception $e){
+
 		}
-		
 	}
 	
 	public function nocache() {
-		if(headers_sent()) return false;		
-		header('Cache-Control: no-store, no-cache, must-revalidate');
-		header('Cache-Control: post-check=0, pre-check=0', false);
-		header('Pragma: no-cache');
-		header('Expires: Wed, 17 Sep 1975 21:32:10 GMT');
-		return true;
+			if(headers_sent()) return false;
+			header('Cache-Control: no-store, no-cache, must-revalidate');
+			header('Cache-Control: post-check=0, pre-check=0', false);
+			header('Pragma: no-cache');
+			header('Expires: Wed, 17 Sep 1975 21:32:10 GMT');
+			return true;
 	}
 
 	public function isJson($string) {

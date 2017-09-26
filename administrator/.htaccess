@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Administracion IPQ"
+AuthUserFile /var/lib/openshift/553ef5675973cafe530000d2/app-root/data/.htpasswd
+Require valid-user

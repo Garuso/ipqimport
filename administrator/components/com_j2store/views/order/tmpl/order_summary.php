@@ -12,6 +12,7 @@ $currency = J2Store::currency();
 <?php if(count($items)):?>
 <h3><?php echo JText::_('J2STORE_ORDER_SUMMARY')?></h3>
 	<div class="alert alert-danger"><?php echo JText::_ ( 'J2STORE_ORDER_EDIT_SUMMARY_TAX_WARRING_MESSAGE' );?></div>
+	<?php echo J2Store::plugin ()->eventWithHtml ( 'BeforeAdminOrderSummery', array(&$order,&$items) );?>
 	<table class="j2store-cart-table table table-bordered">
 		<thead>
 			<tr>

@@ -24,7 +24,7 @@ defined('_JEXEC') or die;
 		<?php if($this->params->get('item_show_product_special_price', 1)): ?>
 		<?php $sale_price = J2Store::product()->displayPrice($this->product->pricing->price, $this->product, $this->params); ?>
 		<div class="sale-price">							
-				<?php echo $sale_price;?>			
+				<?php echo $sale_price;?>				
 		</div>
 	<?php endif; ?>
 	

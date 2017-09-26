@@ -1266,6 +1266,10 @@ class J2StoreModelProducts extends F0FModel {
         $query->select('c.title AS category_title, c.path AS category_route, c.access AS category_access, c.alias AS category_alias')
             ->join('LEFT', '#__categories AS c ON c.id = a.catid');
 
+        if ($this->checkTable ()) {
+            $query->select('mc.catid as mc_catid')->join('LEFT', '#__multicats_content_catid AS mc ON mc.item_id = a.id');
+        }
+
         // Join over the users for the author and modified_by names.
         $query->select("CASE WHEN a.created_by_alias > ' ' THEN a.created_by_alias ELSE ua.name END AS author")
             ->select("ua.email AS author_email")
@@ -1358,7 +1362,6 @@ class J2StoreModelProducts extends F0FModel {
 
     }
 
-
     /**
      * Method to build where query based on the filters
      * @param string $query
@@ -1380,8 +1383,12 @@ class J2StoreModelProducts extends F0FModel {
 
             // Add subcategory check
             $includeSubcategories = $this->getState('filter.subcategories', false);
-            $categoryEquals = 'a.catid ' . $type . ' REGEXP BINARY '. $db->q('[[:<:]]'.$categoryId.'[[:>:]]') ;
-
+            //$categoryEquals = 'a.catid ' . $type . ' REGEXP BINARY '. $db->q('[[:<:]]'.$categoryId.'[[:>:]]') ;
+            if ($this->checkTable ()) {
+                $categoryEquals = 'mc.catid ' . $type . ' REGEXP BINARY '. $db->q('[[:<:]]'.$categoryId.'[[:>:]]') ;
+            }else{
+                $categoryEquals = 'a.catid ' . $type . ' REGEXP BINARY '. $db->q('[[:<:]]'.$categoryId.'[[:>:]]') ;
+            }
             if ($includeSubcategories)
             {
                 //TODO: include subcategories does not support multicategory
@@ -1418,7 +1425,13 @@ class J2StoreModelProducts extends F0FModel {
                 $levels = (int) $this->getState('filter.max_category_levels', '1');
 
                 $includeSubcategories = $this->getState('filter.subcategories', false);
-                $categoryEquals = 'a.catid ' . $type . ' REGEXP BINARY '. $db->q($categoryIds) ;
+                //$categoryEquals = 'a.catid ' . $type . ' REGEXP BINARY '. $db->q($categoryIds) ;
+
+                if ($this->checkTable ()) {
+                    $categoryEquals = 'mc.catid ' . $type . ' REGEXP BINARY '. $db->q($categoryIds) ;
+                }else{
+                    $categoryEquals = 'a.catid ' . $type . ' REGEXP BINARY '. $db->q($categoryIds) ;
+                }
 
                 if ($includeSubcategories)
                 {
@@ -1991,4 +2004,28 @@ class J2StoreModelProducts extends F0FModel {
         return $rows;
     }
 
+    /**
+     * check table is available
+     * @param $string - table name
+     * @param $force - force check
+     * @return boolean
+    */
+    function checkTable($string='multicats_content_catid',$force=false){
+        static $sets;
+
+        if (! is_array ( $sets )) {
+            $sets = array ();
+        }
+        if (! isset ( $sets [$string] ) || $force) {
+            $db = $this->getDbo();
+            $tables = $db->getTableList ();
+            $prefix = $db->getPrefix ();
+            if (in_array ( $prefix . $string, $tables )) {
+                $sets [$string] = true;
+            }else{
+                $sets [$string] = false;
+            }
+        }
+        return $sets [$string];
+    }
 }

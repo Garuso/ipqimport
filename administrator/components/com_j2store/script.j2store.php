@@ -111,15 +111,14 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript{
 
 			 			'site' => array(
 			 					'mod_j2store_currency' => array('left', 0),
-			 					'mod_j2store_cart' => array('left', 0),
-			 					'mod_j2store_products_advanced' => array('j2store-product-module', 0)
+			 					'mod_j2store_cart' => array('left', 0)
 			 					)
 			 		),
 			'plugins' => array(
 							'content' 		=>      array('j2store' => 1),
 							'system' 		=> 		array(
 														'j2store' => 1,
-														'j2pagecache' => 0,
+														'j2pagecache' => 0
 													),
 							'search' 		=> 		array('j2store' => 0),
 							'finder' 		=> 		array('j2store' => 0),

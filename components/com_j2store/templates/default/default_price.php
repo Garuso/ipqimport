@@ -20,7 +20,7 @@ defined('_JEXEC') or die;
 			</div>
 		<?php endif; ?>
 
-		<?php if($this->params->get('list_show_product_special_price', 0)): ?>
+		<?php if($this->params->get('list_show_product_special_price', 1)): ?>
 		<div class="sale-price">			
 			<?php echo J2Store::product()->displayPrice($this->product->pricing->price, $this->product, $this->params);?>		
 		</div>

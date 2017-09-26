@@ -134,7 +134,7 @@ $J2gridCol = ($config->get('bootstrap_version', 2) == 2) ? 'span' : 'col-md-';
 			$('#system-message-container').html('');
 			var c=confirm('<?php echo JText::_("J2STORE_MYPROFILE_DELETE_CONFIRM_MESSAGE");?>');
 			if (c){
-				$delete_url = '<?php echo JRoute::_("index.php?option=com_j2store&view=myprofile&task=deleteAddress&address_id=");?>'+id
+				$delete_url = '<?php echo JRoute::_("index.php?option=com_j2store&view=myprofile&task=deleteAddress&address_id=");?>'+id;
 				window.location = $delete_url;
 			}
 		})(j2store.jQuery);
