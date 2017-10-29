@@ -12,11 +12,7 @@ class JConfig {
 	public $debug = '0';
 	public $debug_lang = '0';
 	public $dbtype = 'mysqli';
-<<<<<<< HEAD
 	public $host = '172.17.0.3';
-=======
-	public $host = '172.31.55.5';
->>>>>>> c62db764510edbe3273238cb90ede1647b285a0f
 	public $user = 'adminWxbzDng';
 	public $password = 'I14yFzuI_9AB';
 	public $db = 'ipq';
